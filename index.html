@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIVE EVENT 2025 — MATCHES</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Cairo',sans-serif;
+  background: linear-gradient(-45deg,#141e30,#243b55,#141e30,#000);
+  background-size:400% 400%;
+  animation:grad 14s ease infinite;
+  color:#fff;
+  min-height:100vh;
+  text-align:right;
+}
+@keyframes grad{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+header{position:fixed;top:0;left:0;right:0;height:65px;background:linear-gradient(90deg,#ff416c,#ff4b2b);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;box-shadow:0 4px 20px rgba(0,0,0,0.5);z-index:200;}
+#i1,#i2{position:absolute;font-size:24px;cursor:pointer;color:#fff;transition:.3s;}
+#i1{right:16px;top:18px;}#i2{left:16px;top:18px;}
+.sidenav{position:fixed;top:0;right:0;height:100%;width:0;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);overflow-x:hidden;transition:0.4s;z-index:300;padding-top:90px;text-align:center;border-left:2px solid rgba(255,255,255,0.1);}
+.sidenav.open{width:250px;}
+.sidenav img{width:85px;border-radius:12px;margin-bottom:18px;border:2px solid rgba(255,255,255,0.2);}
+.sidenav a{padding:12px 18px;display:block;color:#fff;text-decoration:none;font-weight:700;transition:0.3s;}
+.sidenav a:hover{background:rgba(255,255,255,0.1);}
+#page{padding-top:80px;width:100%;display:flex;flex-direction:column;align-items:center;gap:25px;}
+.match-card{background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);border-radius:16px;width:96%;max-width:800px;min-height:180px;color:#fff;box-shadow: 0 8px 22px rgba(0,0,0,0.45);padding:16px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;transition: transform 0.3s, box-shadow 0.3s;position:relative;}
+.match-card:hover{transform:scale(1.04);box-shadow:0 14px 30px rgba(0,0,0,0.6);}
+.match-teams{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.team{width:42%;text-align:center;background: rgba(255,255,255,0.03);padding:12px;border-radius:14px;display:flex;flex-direction:column;align-items:center;}
+.team img{width:70px;height:70px;object-fit:contain;border-radius:50%;padding:8px;margin-bottom:10px;background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.25);}
+.team-name{font-size:18px;font-weight:700;}
+.match-status{width:18%;min-width:80px;text-align:center;font-weight:700;font-size:16px;background:linear-gradient(90deg,#ff416c,#ff4b2b);padding:8px 10px;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:5px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+@keyframes bounce {0%,100% { transform:translateY(0);}50% { transform:translateY(-8px);}}
+.emoji{display:inline-block;animation:bounce 1s infinite;}
+.match-details{display:flex;justify-content:space-around;flex-wrap:wrap;gap:10px;font-size:15px;margin-top:8px;}
+.match-details span{display:flex;align-items:center;gap:8px;padding:6px 8px;background: rgba(255,255,255,0.06);border-radius:8px;color:#fff;}
+@media(max-width:600px){.team img{width:55px;height:55px;}.team-name{font-size:16px;}.match-status{font-size:14px;padding:6px 8px;min-width:65px;}.match-details{font-size:13px;gap:6px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <i id="i1" class="fa fa-bars" onclick="openNav()"></i>
+  LIVE EVENT 2025
+</header>
+
+<nav id="mySidenav" class="sidenav">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRzCRYO8-6NkuB1qY9B7oK0dHbmnCIgcfbEA&s">
+  <a href="#"><i class="fa fa-share"></i> مشاركة التطبيق</a>
+  <a href="#"><i class="fa fa-bolt"></i> سياسة الخصوصية</a>
+  <a href="javascript:void(0)" onclick="closeNav()"><i class="fa fa-close"></i> إغلاق</a>
+</nav>
+
+<div id="page"></div>
+
+<script>
+function openNav(){document.getElementById('mySidenav').classList.add('open');}
+function closeNav(){document.getElementById('mySidenav').classList.remove('open');}
+
+// JSON المباريات
+const matches=[
+  {team1:{name:"اتلتيكو مدريد",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/xWY4as7vKsiitaDE-lmIe.png"},team2:{name:"فالنسيا",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/GBjhrfqF1SgdL1HLfI-7z.png"},status:"live",time:"3:00",commentator:"حفيظ دراجي",league:"الدوري الاسباني",channel:"beIN SPORTS 3",link:"go:3HD"},
+  {team1:{name:"ليفربول",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/5pqbkK17JBIe7kMzOPSdr.png"},team2:{name:"برايتون",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/WiirpxPm2UOiRN90nCKOM.png"},status:"upcoming",time:"5:00",commentator:"علي سعيد الكعبي",league:"الدوري الانجليزي",channel:"beIN SPORTS 1",link:"go:1FHD"},
+  {team1:{name:"تشيلسي",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/w5N6rBTPf_J_brPwrNIOG.png"},team2:{name:"ايفرتون",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/KpdwLlfU5HTu0Xg7fXxof.png"},status:"upcoming",time:"5:00",commentator:"احمد البلوشي",league:"الدوري الانجليزي",channel:"beIN SPORTS 4",link:"go:4HD"},
+  {team1:{name:"ريال مايوركا",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/bE7wfVD_uxZOlicMBWmmX.png"},team2:{name:"التشي",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/At7wHXEtvayILK0zMoHM7.png"},status:"upcoming",time:"5:15",commentator:"جواد بده",league:"الدوري الاسباني",channel:"beIN SPORTS 5",link:"go:5HD"}
+];
+
+// دالة إنشاء البطاقة
+function renderMatches(){
+  const container=document.getElementById('page');
+  container.innerHTML='';
+  matches.forEach(m=>{
+    const div=document.createElement('div');
+    div.className='match-card';
+    div.dataset.status=m.status;
+    div.onclick=()=>{window.location=m.link;};
+    div.innerHTML=`
+      <div class="match-teams">
+        <div class="team"><img src="${m.team1.img}"><div class="team-name">${m.team1.name}</div></div>
+        <div class="match-status"><span class="emoji">⚽</span> ${m.time}</div>
+        <div class="team"><img src="${m.team2.img}"><div class="team-name">${m.team2.name}</div></div>
+      </div>
+      <div class="match-details">
+        <span>🎙️ ${m.commentator}</span>
+        <span>🏆 ${m.league}</span>
+        <span>▶ ${m.channel}</span>
+      </div>`;
+    container.appendChild(div);
+  });
+  // ترتيب حسب الحالة
+  const cards=Array.from(container.querySelectorAll('.match-card'));
+  cards.sort((a,b)=>{const order={live:1,upcoming:2,finished:3};return order[a.dataset.status]-order[b.dataset.status];});
+  cards.forEach(c=>container.appendChild(c));
+}
+
+// عرض أول مرة
+renderMatches();
+// تحديث كل دقيقة
+setInterval(renderMatches,60000);
+</script>
+</body>
+</html>
