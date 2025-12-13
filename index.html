@@ -81,7 +81,7 @@ function renderMatches(){
     div.innerHTML=`
       <div class="match-teams">
         <div class="team"><img src="${m.team1.img}"><div class="team-name">${m.team1.name}</div></div>
-        <div class="match-status"><span class="emoji">⚽</span> ${m.time}</div>
+        <div class="match-status"><span class="emoji"></span> ${m.time}</div>
         <div class="team"><img src="${m.team2.img}"><div class="team-name">${m.team2.name}</div></div>
       </div>
       <div class="match-details">
@@ -104,4 +104,5 @@ setInterval(renderMatches,5000);
 </script>
 </body>
 </html>
+
 
