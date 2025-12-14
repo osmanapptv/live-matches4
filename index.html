@@ -5,230 +5,136 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LIVE EVENT 2025 — MATCHES</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-* { box-sizing:border-box; margin:0; padding:0; }
-body{
-  font-family:'Cairo',sans-serif;
-  background: linear-gradient(-45deg,#1b2735,#243b55,#1b2735,#0f1f2d);
-  background-size:400% 400%;
-  animation:grad 14s ease infinite;
-  color:#fff;
-  min-height:100vh;
-  text-align:right;
-}
-@keyframes grad{
-  0%,100%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-}
-
-header{
-  position:fixed;top:0;left:0;right:0;
-  height:65px;
-  background:linear-gradient(90deg,#ff416c,#ff4b2b);
-  display:flex;align-items:center;justify-content:center;
-  font-weight:700;font-size:20px;
-  box-shadow:0 4px 20px rgba(0,0,0,0.5);
-  z-index:200;
-}
-#i1,#i2{
-  position:absolute;font-size:24px;cursor:pointer;color:#fff;transition:.3s;
-}
-#i1{right:16px;top:18px;}
-#i2{left:16px;top:18px;}
-
-.sidenav{
-  position:fixed;top:0;right:0;
-  height:100%;width:0;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  overflow-x:hidden;
-  transition:0.4s;
-  z-index:300;
-  padding-top:90px;text-align:center;
-  border-left:2px solid rgba(255,255,255,0.1);
-}
-.sidenav.open{width:250px;}
-.sidenav img{width:85px;border-radius:12px;margin-bottom:18px;border:2px solid rgba(255,255,255,0.2);} 
-.sidenav a{padding:12px 18px;display:block;color:#fff;text-decoration:none;font-weight:700;transition:0.3s;}
-.sidenav a:hover{background:rgba(255,255,255,0.1);}
-
-#page{padding-top:80px;width:100%;display:flex;flex-direction:column;align-items:center;gap:25px;}
-
-/* MATCH CARD */
-.match-card {
-  background: linear-gradient(135deg,#243b55,#1b2735);
-  border-radius:16px;
-  width:96%;
-  max-width:800px;
-  min-height:180px;
-  color:#fff;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-  padding:16px;
-  cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  transition: transform 0.3s, box-shadow 0.3s;
-  position:relative;
-}
-.match-card:hover{
-  transform:scale(1.04);
-  box-shadow:0 14px 35px rgba(0,0,0,0.7);
-}
-
-.match-teams{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
-.team{
-  width:42%;
-  text-align:center;
-  background: rgba(255,255,255,0.03);
-  padding:12px;
-  border-radius:14px;
-  display:flex;flex-direction:column;align-items:center;
-}
-.team img{
-  width:70px;height:70px;
-  object-fit:contain;
-  border-radius:50%;
-  padding:8px;
-  margin-bottom:10px;
-  background:rgba(255,255,255,0.05);
-  border:2px solid rgba(255,255,255,0.2);
-}
-.team-name{font-size:18px;font-weight:700;}
-
-.match-status{
-  width:18%;
-  min-width:80px;
-  text-align:center;
-  font-weight:700;
-  font-size:16px;
-  padding:8px 10px;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  background: #2e3a59; 
-  color:#fff;
-}
-
-.match-card[data-status="live"] .match-status{
-  background: linear-gradient(90deg,#ff416c,#ff4b2b);
-  color:#fff;
-}
-
-.match-card[data-status="upcoming"] .match-status{
-  background: linear-gradient(90deg,#4facfe,#00f2fe);
-  color:#fff;
-}
-
-.match-card[data-status="finished"] .match-status{
-  background: #555c6a;
-  color:#ccc;
-}
-
-/* ⚽ إيموشن متحرك */
-@keyframes bounce {
-  0%,100% { transform:translateY(0);}
-  50% { transform:translateY(-8px);}
-}
-.emoji {
-  display:inline-block;
-  animation:bounce 1s infinite;
-}
-
-.match-details{
-  display:flex;
-  justify-content:space-around;
-  flex-wrap:wrap;
-  gap:10px;
-  font-size:15px;
-  margin-top:8px;
-}
-.match-details span{
-  display:flex;align-items:center;gap:8px;
-  padding:6px 8px;
-  background: rgba(255,255,255,0.06);
-  border-radius:8px;color:#fff;
-}
-
-@media(max-width:600px){
-  .team img{width:55px;height:55px;}
-  .team-name{font-size:16px;}
-  .match-status{font-size:14px;padding:6px 8px;min-width:65px;}
-  .match-details{font-size:13px;gap:6px;}
-}
+body{font-family:'Cairo',sans-serif;background:#1b2735;color:#fff;margin:0;padding:0;text-align:right;}
+header{position:fixed;top:0;left:0;right:0;height:65px;background:linear-gradient(90deg,#ff416c,#ff4b2b);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;box-shadow:0 4px 20px rgba(0,0,0,0.5);z-index:200;}
+#page{padding-top:80px;display:flex;flex-direction:column;align-items:center;gap:25px;}
+.match-card{background:#243b55;border-radius:16px;width:96%;max-width:800px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 25px rgba(0,0,0,0.6);cursor:pointer;transition:transform 0.3s;}
+.match-card:hover{transform:scale(1.03);}
+.match-teams{display:flex;justify-content:space-between;align-items:center;}
+.team{width:42%;text-align:center;background: rgba(255,255,255,0.03);padding:12px;border-radius:14px;display:flex;flex-direction:column;align-items:center;}
+.team img{width:70px;height:70px;border-radius:50%;margin-bottom:10px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);}
+.team-name{font-weight:700;}
+.match-status{width:18%;text-align:center;padding:8px;border-radius:10px;font-weight:700;}
+.match-card[data-status="live"] .match-status{background:linear-gradient(90deg,#ff416c,#ff4b2b);}
+.match-card[data-status="upcoming"] .match-status{background:linear-gradient(90deg,#4facfe,#00f2fe);}
+.match-card[data-status="finished"] .match-status{background:#555c6a;color:#ccc;}
+.match-details{display:flex;justify-content:space-around;flex-wrap:wrap;gap:8px;font-size:14px;}
+.match-details span{background:rgba(255,255,255,0.05);padding:5px 8px;border-radius:6px;}
+@media(max-width:600px){.team img{width:55px;height:55px;}.team-name{font-size:16px;}.match-details{font-size:12px;}}
 </style>
 </head>
 <body>
 
-<header>
-  <i id="i1" class="fa fa-bars" onclick="openNav()"></i>
-  LIVE EVENT 2025
-</header>
-
-<nav id="mySidenav" class="sidenav">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRzCRYO8-6NkuB1qY9B7oK0dHbmnCIgcfbEA&s">
-  <a href="#"><i class="fa fa-share"></i> مشاركة التطبيق</a>
-  <a href="#"><i class="fa fa-bolt"></i> سياسة الخصوصية</a>
-  <a href="javascript:void(0)" onclick="closeNav()"><i class="fa fa-close"></i> إغلاق</a>
-</nav>
-
+<header>LIVE EVENT 2025</header>
 <div id="page"></div>
 
 <script>
-function openNav(){document.getElementById('mySidenav').classList.add('open');}
-function closeNav(){document.getElementById('mySidenav').classList.remove('open');}
+// ===== كل مباراة منفصلة ككائن مستقل =====
+const match1 = {
+  team1:{name:"الافيس",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/dqC3XtzsGeXe3c53Qqrn-.png?quality=60&auto=webp&format=pjpg"},
+  team2:{name:"ريال مدريد ",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/VOlkxOIoXAXF_11lYJ_Ve.png?quality=60&auto=webp&format=pjpg"},
+  startTime:"2025-12-14T22:00",
+  endTime:"2025-12-14T23:55",
+  commentator:"احمد البلوشي",
+  league:"الدوري الاسباني",
+  channel:"beIN SPORTS 1",
+  link:"go:1FHD"
+};
 
-const matches=[
-  {
-    team1:{name:"تشيلسي",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/w5N6rBTPf_J_brPwrNIOG.png"},
-    team2:{name:"ايفرتون",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/KpdwLlfU5HTu0Xg7fXxof.png"},
-    startTime:"2025-12-14T18:00:00",
-    endTime:"2025-12-14T19:45:00",
-    commentator:"احمد البلوشي",
-    league:"الدوري الإنجليزي",
-    channel:"beIN SPORTS 4",
-    link:"go:4HD"
-  },
-  {
-    team1:{name:"ريال مدريد",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/7Z2RzVpqgRjlSDWZ77.png"},
-    team2:{name:"برشلونة",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/1vB8KfWP6GkqJYBfY.png"},
-    startTime:"2025-12-14T02:00:00",
-    endTime:"2025-12-14T02:47:00",
-    commentator:"حسن العيدروس",
-    league:"الدوري الإسباني",
-    channel:"beIN SPORTS 1",
-    link:"go:5HD"
-  }
-  // أضف باقي المباريات بنفس النمط...
-];
+const match2 = {
+  team1:{name:"كريستال بلاس ",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/fkqJeAhCc1RGGGO8bTZwl.png?quality=60&auto=webp&format=pjpg"},
+  team2:{name:"مان سيتي",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/YaWwRy_S6TKMuwJHBvDbR.png?quality=60&auto=webp&format=pjpg"},
+  startTime:"2025-12-14T16:00",
+  endTime:"2025-12-14T17:55",
+  commentator:"عامر الخوذيري ",
+  league:"الدوري الانجليزي",
+  channel:"beIN SPORTS 1",
+  link:"go:1FHD"
+};
 
+// أضف باقي المباريات بنفس الطريقة
+const match3 = {
+  team1:{name:"نوتينغهام",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/BNAy0MWCqOxdSF4SLgCPK.png?quality=60&auto=webp&format=pjpg"},
+  team2:{name:"توتنهام",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/KmdeSyXZ0p1BvszXZCBzu.png?quality=60&auto=webp&format=pjpg"},
+  startTime:"2025-12-14T16:00",
+  endTime:"2025-12-14T17:55",
+  commentator:"حفيظ دراجي",
+  league:"الدوري الانجليزي",
+  channel:"beIN SPORTS 2",
+  link:"go:2HD"
+};
+
+const match4 = {
+  team1:{name:"وست هام ",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/CCygH4qVdQFkGTvjHdtDp.png?quality=60&auto=webp&format=pjpg"},
+  team2:{name:"استون فيلا ",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/qgf3Tx9R3nphdWIS9SgyB.png?quality=60&auto=webp&format=pjpg"},
+  startTime:"2025-12-14T16:00",
+  endTime:"2025-12-14T17:55",
+  commentator:"محمد المبروكي ",
+  league:"الدوري الانجليزي",
+  channel:"beIN SPORTS 4",
+  link:"go:4HD"
+};
+
+const match5 = {
+  team1:{name:" اشبيليه ",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/crn6HYOO9QzfqMRAUuGIF.png?quality=60&auto=webp&format=pjpg"},
+  team2:{name:"ريال اوفيدو",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/iJsx23HjFBj0TtulZSFE8.png?quality=60&auto=webp&format=pjpg"},
+  startTime:"2025-12-14T15:00",
+  endTime:"2025-12-14T16:50",
+  commentator:"احمد فؤاد ",
+  league:"الدوري الاسباني",
+  channel:"beIN SPORTS 5",
+  link:"go:5HD"
+};
+
+const match6 = {
+  team1:{name:"سيلتا فيغو",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/FTgkUPD0PmbUD4tk9KLzC.png?quality=60&auto=webp&format=pjpg"},
+  team2:{name:"اتلتيك بلباو",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/7h4N4ZU17VQqx1GNJwuvF.png?quality=60&auto=webp&format=pjpg"},
+  startTime:"2025-12-14T17:15",
+  endTime:"2025-12-14T19:05",
+  commentator:"نوفل باشي",
+  league:"الدوري الاسباني",
+  channel:"beIN SPORTS 5",
+  link:"go:5HD"
+};
+
+const match7 = {
+  team1:{name:" ليفانتي",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/O-dLKNu7kxdqPWfH2EpDy.png?quality=60&auto=webp&format=pjpg"},
+  team2:{name:"فياريال",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/Wq9oBgwBzFNsQIFp7begY.png?quality=60&auto=webp&format=pjpg"},
+  startTime:"2025-12-14T19:30",
+  endTime:"2025-12-14T20:20",
+  commentator:"محمد بركات",
+  league:"الدوري الإسباني",
+  channel:"beIN SPORTS 3",
+  link:"go:3HD"
+};
+
+// ===== مصفوفة كل المباريات =====
+const matches = [match1, match2, match3, match4, match5, match6, match7];
+
+// ===== عرض المباريات =====
 function renderMatches(){
-  const container=document.getElementById('page');
+  const container = document.getElementById('page');
   container.innerHTML='';
-  
-  // ترتيب حسب وقت البداية
-  matches.sort((a,b)=>new Date(a.startTime)-new Date(b.startTime));
+
+  // ترتيب المباريات بحيث المنتهية للأسفل
+  matches.sort((a,b)=>{
+    const now = new Date();
+    const endA = new Date(a.endTime);
+    const endB = new Date(b.endTime);
+    if(endA < now && endB >= now) return 1;
+    if(endB < now && endA >= now) return -1;
+    return new Date(a.startTime)-new Date(b.startTime);
+  });
 
   matches.forEach((m,index)=>{
-    const div=document.createElement('div');
+    const div = document.createElement('div');
     div.className='match-card';
     div.onclick=()=>{window.location=m.link;};
-
-    const statusEl = `<div class="match-status"><span class="emoji">⚽</span> </div>`;
     div.innerHTML=`
       <div class="match-teams">
         <div class="team"><img src="${m.team1.img}"><div class="team-name">${m.team1.name}</div></div>
-        <div class="match-status" id="status-${index}"><span class="emoji">⚽</span></div>
+        <div class="match-status" id="status-${index}">⚽</div>
         <div class="team"><img src="${m.team2.img}"><div class="team-name">${m.team2.name}</div></div>
       </div>
       <div class="match-details">
@@ -236,6 +142,7 @@ function renderMatches(){
         <span>🏆 ${m.league}</span>
         <span>▶ ${m.channel}</span>
       </div>`;
+    
     container.appendChild(div);
 
     const statusDiv = document.getElementById(`status-${index}`);
@@ -243,28 +150,17 @@ function renderMatches(){
       const now = new Date();
       const start = new Date(m.startTime);
       const end = new Date(m.endTime);
-      if(now<start){
-        statusDiv.textContent = "لم تبدأ";
-        div.dataset.status="upcoming";
-      } else if(now>=start && now<=end){
-        statusDiv.textContent = "جارية الآن";
-        div.dataset.status="live";
-      } else {
-        statusDiv.textContent = "انتهت";
-        div.dataset.status="finished";
-      }
+      if(now < start){statusDiv.textContent="لم تبدأ"; div.dataset.status="upcoming";}
+      else if(now >= start && now <= end){statusDiv.textContent="جارية الآن"; div.dataset.status="live";}
+      else{statusDiv.textContent="انتهت"; div.dataset.status="finished";}
     }
     updateStatus();
-    setInterval(updateStatus,000);
+    setInterval(updateStatus,1000);
   });
 }
 
-// عرض المباريات
 renderMatches();
 </script>
 
 </body>
 </html>
-
-
-
