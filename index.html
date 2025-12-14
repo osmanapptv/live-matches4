@@ -2,10 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>جدول مباريات — MATCHES</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مباريات اليوم — MATCHES</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-
 <style>
 html, body{
   margin:0; padding:0;
@@ -37,7 +36,6 @@ header{
   background:#243b55; border-radius:16px; width:96%; max-width:800px;
   padding:16px; display:flex; flex-direction:column; gap:12px;
   box-shadow:0 8px 25px rgba(0,0,0,0.6); cursor:pointer;
-  transition: transform 0.3s;
 }
 
 .match-teams{display:flex; justify-content:space-between; align-items:center;}
@@ -76,10 +74,10 @@ const match5 = {team1:{name:"اشبيليه",img:"https://cdn.sportfeeds.io/sdl/
 const match6 = {team1:{name:"سيلتا فيغو",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/FTgkUPD0PmbUD4tk9KLzC.png"},team2:{name:"اتلتيك بلباو",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/7h4N4ZU17VQqx1GNJwuvF.png"},startTime:"2025-12-14T17:15",endTime:"2025-12-14T19:05",commentator:"نوفل باشي",league:"الدوري الاسباني",channel:"beIN SPORTS 5",link:"go:5HD"};
 const match7 = {team1:{name:"ليفانتي",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/O-dLKNu7kxdqPWfH2EpDy.png"},team2:{name:"فياريال",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/Wq9oBgwBzFNsQIFp7begY.png"},startTime:"2025-12-14T19:30",endTime:"2025-12-14T20:20",commentator:"محمد بركات",league:"الدوري الإسباني",channel:"beIN SPORTS 3",link:"go:3HD"};
 
-const matches = [match1, match2, match3, match4, match5, match6, match7];
+let matches = [match1, match2, match3, match4, match5, match6, match7];
 
-/* ===== ترتيب المباريات حسب الحالة ===== */
-function sortMatchesByStatus(matches){
+/* ===== ترتيب المباريات عند التحميل فقط ===== */
+function sortMatchesByStatusOnce(matches){
   const now = new Date();
   const live = [], upcoming = [], finished = [];
   matches.forEach(m=>{
@@ -89,49 +87,46 @@ function sortMatchesByStatus(matches){
     else if(now < start) upcoming.push(m);
     else finished.push(m);
   });
-  return [...live, ...upcoming, ...finished];
+  return [...live,...upcoming,...finished];
 }
 
-/* ===== عرض المباريات مع التحديث التلقائي ===== */
-function renderMatches(){
-  const container = document.getElementById("page");
+matches = sortMatchesByStatusOnce(matches);
 
-  function update(){
-    container.innerHTML="";
-    const sortedMatches = sortMatchesByStatus(matches);
-    sortedMatches.forEach((m,i)=>{
-      const d = document.createElement("div");
-      d.className = "match-card";
-      d.onclick = ()=>location.href=m.link;
-      d.innerHTML=`
-        <div class="match-teams">
-          <div class="team"><img src="${m.team1.img}"><div>${m.team1.name}</div></div>
-          <div class="match-status" id="s${i}">⚽</div>
-          <div class="team"><img src="${m.team2.img}"><div>${m.team2.name}</div></div>
-        </div>
-        <div class="match-details">
-          <span>🎙 ${m.commentator}</span>
-          <span>🏆 ${m.league}</span>
-          <span>▶ ${m.channel}</span>
-        </div>
-      `;
-      container.appendChild(d);
+/* ===== عرض المباريات بدون إعادة إنشاء العناصر لاحقًا ===== */
+const container = document.getElementById("page");
 
-      const statusDiv=document.getElementById(`s${i}`);
-      const now=new Date();
-      const start=new Date(m.startTime);
-      const end=new Date(m.endTime);
-      if(now < start){d.dataset.status="upcoming";statusDiv.textContent="لم تبدأ";}
-      else if(now<=end){d.dataset.status="live";statusDiv.textContent="جارية الآن";}
-      else{d.dataset.status="finished";statusDiv.textContent="انتهت";}
-    });
-  }
+matches.forEach((m,i)=>{
+  const d = document.createElement("div");
+  d.className = "match-card";
+  d.onclick = ()=>location.href=m.link;
+  d.innerHTML=`
+    <div class="match-teams">
+      <div class="team"><img src="${m.team1.img}"><div>${m.team1.name}</div></div>
+      <div class="match-status" id="status-${i}">⚽</div>
+      <div class="team"><img src="${m.team2.img}"><div>${m.team2.name}</div></div>
+    </div>
+    <div class="match-details">
+      <span>🎙 ${m.commentator}</span>
+      <span>🏆 ${m.league}</span>
+      <span>▶ ${m.channel}</span>
+    </div>
+  `;
+  container.appendChild(d);
+});
 
-  update();
-  setInterval(update,100); // إعادة الترتيب كل ثانية
-}
+/* ===== تحديث الحالة فقط كل ثانية بدون تحريك الصفحة ===== */
+setInterval(()=>{
+  const now = new Date();
+  matches.forEach((m,i)=>{
+    const statusDiv = document.getElementById(`status-${i}`);
+    const start = new Date(m.startTime);
+    const end = new Date(m.endTime);
+    if(now < start){statusDiv.textContent="لم تبدأ"; statusDiv.parentElement.parentElement.dataset.status="upcoming";}
+    else if(now <= end){statusDiv.textContent="جارية الآن"; statusDiv.parentElement.parentElement.dataset.status="live";}
+    else{statusDiv.textContent="انتهت"; statusDiv.parentElement.parentElement.dataset.status="finished";}
+  });
+},1000);
 
-renderMatches();
 </script>
 
 </body>
