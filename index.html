@@ -5,157 +5,267 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LIVE EVENT 2025 — MATCHES</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-body{font-family:'Cairo',sans-serif;background:#1b2735;color:#fff;margin:0;padding:0;text-align:right;}
-header{position:fixed;top:0;left:0;right:0;height:65px;background:linear-gradient(90deg,#ff416c,#ff4b2b);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;box-shadow:0 4px 20px rgba(0,0,0,0.5);z-index:200;}
-#page{padding-top:80px;display:flex;flex-direction:column;align-items:center;gap:25px;}
-.match-card{background:#243b55;border-radius:16px;width:96%;max-width:800px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 25px rgba(0,0,0,0.6);cursor:pointer;transition:transform 0.3s;}
+body{
+  font-family:'Cairo',sans-serif;
+  background:#1b2735;
+  color:#fff;
+  margin:0;
+  padding:0;
+  text-align:right;
+}
+
+/* ===== الهيدر ===== */
+header{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:65px;
+  background:linear-gradient(90deg,#ff416c,#ff4b2b);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:20px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.5);
+  z-index:200;
+}
+
+/* زر الرجوع */
+.back-btn{
+  position:absolute;
+  right:15px;
+  cursor:pointer;
+  color:#fff;
+  font-size:16px;
+  background:rgba(0,0,0,0.25);
+  padding:6px 14px;
+  border-radius:12px;
+  transition:0.3s;
+  user-select:none;
+}
+.back-btn:hover{
+  background:rgba(0,0,0,0.45);
+}
+
+/* ===== الصفحة ===== */
+#page{
+  padding-top:80px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:25px;
+}
+
+.match-card{
+  background:#243b55;
+  border-radius:16px;
+  width:96%;
+  max-width:800px;
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.6);
+  cursor:pointer;
+  transition:transform 0.3s;
+}
 .match-card:hover{transform:scale(1.03);}
-.match-teams{display:flex;justify-content:space-between;align-items:center;}
-.team{width:42%;text-align:center;background: rgba(255,255,255,0.03);padding:12px;border-radius:14px;display:flex;flex-direction:column;align-items:center;}
-.team img{width:70px;height:70px;border-radius:50%;margin-bottom:10px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);}
+
+.match-teams{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.team{
+  width:42%;
+  text-align:center;
+  background:rgba(255,255,255,0.03);
+  padding:12px;
+  border-radius:14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.team img{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  margin-bottom:10px;
+  border:2px solid rgba(255,255,255,0.2);
+}
+
 .team-name{font-weight:700;}
-.match-status{width:18%;text-align:center;padding:8px;border-radius:10px;font-weight:700;}
-.match-card[data-status="live"] .match-status{background:linear-gradient(90deg,#ff416c,#ff4b2b);}
-.match-card[data-status="upcoming"] .match-status{background:linear-gradient(90deg,#4facfe,#00f2fe);}
-.match-card[data-status="finished"] .match-status{background:#555c6a;color:#ccc;}
-.match-details{display:flex;justify-content:space-around;flex-wrap:wrap;gap:8px;font-size:14px;}
-.match-details span{background:rgba(255,255,255,0.05);padding:5px 8px;border-radius:6px;}
-@media(max-width:600px){.team img{width:55px;height:55px;}.team-name{font-size:16px;}.match-details{font-size:12px;}}
+
+.match-status{
+  width:18%;
+  text-align:center;
+  padding:8px;
+  border-radius:10px;
+  font-weight:700;
+}
+
+.match-card[data-status="live"] .match-status{
+  background:linear-gradient(90deg,#ff416c,#ff4b2b);
+}
+.match-card[data-status="upcoming"] .match-status{
+  background:linear-gradient(90deg,#4facfe,#00f2fe);
+}
+.match-card[data-status="finished"] .match-status{
+  background:#555c6a;
+  color:#ccc;
+}
+
+.match-details{
+  display:flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
+  gap:8px;
+  font-size:14px;
+}
+.match-details span{
+  background:rgba(255,255,255,0.05);
+  padding:5px 8px;
+  border-radius:6px;
+}
+
+@media(max-width:600px){
+  .team img{width:55px;height:55px;}
+  .team-name{font-size:16px;}
+  .match-details{font-size:12px;}
+}
 </style>
 </head>
+
 <body>
 
-<header>LIVE EVENT 2025</header>
+<header>
+  <div class="back-btn" onclick="goHome()">⟵ رجوع</div>
+  <span>LIVE EVENT 2025</span>
+</header>
+
 <div id="page"></div>
 
 <script>
-// ===== كل مباراة منفصلة ككائن مستقل =====
-const match1 = {
-  team1:{name:"الافيس",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/dqC3XtzsGeXe3c53Qqrn-.png?quality=60&auto=webp&format=pjpg"},
-  team2:{name:"ريال مدريد ",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/VOlkxOIoXAXF_11lYJ_Ve.png?quality=60&auto=webp&format=pjpg"},
-  startTime:"2025-12-14T22:00",
-  endTime:"2025-12-14T23:55",
-  commentator:"احمد البلوشي",
-  league:"الدوري الاسباني",
-  channel:"beIN SPORTS 1",
-  link:"go:1FHD"
-};
+/* ===== الرجوع للصفحة الرئيسية ===== */
+const HOME_URL = "go:zz";
 
-const match2 = {
-  team1:{name:"كريستال بلاس ",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/fkqJeAhCc1RGGGO8bTZwl.png?quality=60&auto=webp&format=pjpg"},
-  team2:{name:"مان سيتي",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/YaWwRy_S6TKMuwJHBvDbR.png?quality=60&auto=webp&format=pjpg"},
-  startTime:"2025-12-14T16:00",
-  endTime:"2025-12-14T17:55",
-  commentator:"عامر الخوذيري ",
-  league:"الدوري الانجليزي",
-  channel:"beIN SPORTS 1",
-  link:"go:1FHD"
-};
+function goHome(){
+  window.location.href = HOME_URL;
+}
 
-// أضف باقي المباريات بنفس الطريقة
-const match3 = {
-  team1:{name:"نوتينغهام",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/BNAy0MWCqOxdSF4SLgCPK.png?quality=60&auto=webp&format=pjpg"},
-  team2:{name:"توتنهام",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/KmdeSyXZ0p1BvszXZCBzu.png?quality=60&auto=webp&format=pjpg"},
-  startTime:"2025-12-14T16:00",
-  endTime:"2025-12-14T17:55",
-  commentator:"حفيظ دراجي",
-  league:"الدوري الانجليزي",
-  channel:"beIN SPORTS 2",
-  link:"go:2HD"
-};
+/* زر الرجوع في الهاتف */
+history.pushState(null, "", location.href);
+window.addEventListener("popstate", function () {
+  goHome();
+});
 
-const match4 = {
-  team1:{name:"وست هام ",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/CCygH4qVdQFkGTvjHdtDp.png?quality=60&auto=webp&format=pjpg"},
-  team2:{name:"استون فيلا ",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/qgf3Tx9R3nphdWIS9SgyB.png?quality=60&auto=webp&format=pjpg"},
-  startTime:"2025-12-14T16:00",
-  endTime:"2025-12-14T17:55",
-  commentator:"محمد المبروكي ",
-  league:"الدوري الانجليزي",
-  channel:"beIN SPORTS 4",
-  link:"go:4HD"
-};
+/* ===== كل المباريات ===== */
+const matches = [
+  {
+    team1:{name:"الافيس",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/dqC3XtzsGeXe3c53Qqrn-.png"},
+    team2:{name:"ريال مدريد",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/VOlkxOIoXAXF_11lYJ_Ve.png"},
+    startTime:"2025-12-14T22:00",
+    endTime:"2025-12-14T23:55",
+    commentator:"احمد البلوشي",
+    league:"الدوري الاسباني",
+    channel:"beIN SPORTS 1",
+    link:"go:1FHD"
+  },
+  {
+    team1:{name:"كريستال بلاس",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/fkqJeAhCc1RGGGO8bTZwl.png"},
+    team2:{name:"مان سيتي",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/YaWwRy_S6TKMuwJHBvDbR.png"},
+    startTime:"2025-12-14T16:00",
+    endTime:"2025-12-14T17:55",
+    commentator:"عامر الخوذيري",
+    league:"الدوري الانجليزي",
+    channel:"beIN SPORTS 1",
+    link:"go:1FHD"
+  },
+  {
+    team1:{name:"نوتينغهام",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/BNAy0MWCqOxdSF4SLgCPK.png"},
+    team2:{name:"توتنهام",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/KmdeSyXZ0p1BvszXZCBzu.png"},
+    startTime:"2025-12-14T16:00",
+    endTime:"2025-12-14T17:55",
+    commentator:"حفيظ دراجي",
+    league:"الدوري الانجليزي",
+    channel:"beIN SPORTS 2",
+    link:"go:2HD"
+  },
+  {
+    team1:{name:"وست هام",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/CCygH4qVdQFkGTvjHdtDp.png"},
+    team2:{name:"استون فيلا",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/qgf3Tx9R3nphdWIS9SgyB.png"},
+    startTime:"2025-12-14T16:00",
+    endTime:"2025-12-14T17:55",
+    commentator:"محمد المبروكي",
+    league:"الدوري الانجليزي",
+    channel:"beIN SPORTS 4",
+    link:"go:4HD"
+  },
+  {
+    team1:{name:"اشبيليه",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/crn6HYOO9QzfqMRAUuGIF.png"},
+    team2:{name:"ريال اوفيدو",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/iJsx23HjFBj0TtulZSFE8.png"},
+    startTime:"2025-12-14T15:00",
+    endTime:"2025-12-14T16:50",
+    commentator:"احمد فؤاد",
+    league:"الدوري الاسباني",
+    channel:"beIN SPORTS 5",
+    link:"go:5HD"
+  },
+  {
+    team1:{name:"سيلتا فيغو",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/FTgkUPD0PmbUD4tk9KLzC.png"},
+    team2:{name:"اتلتيك بلباو",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/7h4N4ZU17VQqx1GNJwuvF.png"},
+    startTime:"2025-12-14T17:15",
+    endTime:"2025-12-14T19:05",
+    commentator:"نوفل باشي",
+    league:"الدوري الاسباني",
+    channel:"beIN SPORTS 5",
+    link:"go:5HD"
+  },
+  {
+    team1:{name:"ليفانتي",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/O-dLKNu7kxdqPWfH2EpDy.png"},
+    team2:{name:"فياريال",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/Wq9oBgwBzFNsQIFp7begY.png"},
+    startTime:"2025-12-14T19:30",
+    endTime:"2025-12-14T20:20",
+    commentator:"محمد بركات",
+    league:"الدوري الإسباني",
+    channel:"beIN SPORTS 3",
+    link:"go:3HD"
+  }
+];
 
-const match5 = {
-  team1:{name:" اشبيليه ",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/crn6HYOO9QzfqMRAUuGIF.png?quality=60&auto=webp&format=pjpg"},
-  team2:{name:"ريال اوفيدو",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/iJsx23HjFBj0TtulZSFE8.png?quality=60&auto=webp&format=pjpg"},
-  startTime:"2025-12-14T15:00",
-  endTime:"2025-12-14T16:50",
-  commentator:"احمد فؤاد ",
-  league:"الدوري الاسباني",
-  channel:"beIN SPORTS 5",
-  link:"go:5HD"
-};
-
-const match6 = {
-  team1:{name:"سيلتا فيغو",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/FTgkUPD0PmbUD4tk9KLzC.png?quality=60&auto=webp&format=pjpg"},
-  team2:{name:"اتلتيك بلباو",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/7h4N4ZU17VQqx1GNJwuvF.png?quality=60&auto=webp&format=pjpg"},
-  startTime:"2025-12-14T17:15",
-  endTime:"2025-12-14T19:05",
-  commentator:"نوفل باشي",
-  league:"الدوري الاسباني",
-  channel:"beIN SPORTS 5",
-  link:"go:5HD"
-};
-
-const match7 = {
-  team1:{name:" ليفانتي",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/O-dLKNu7kxdqPWfH2EpDy.png?quality=60&auto=webp&format=pjpg"},
-  team2:{name:"فياريال",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/Wq9oBgwBzFNsQIFp7begY.png?quality=60&auto=webp&format=pjpg"},
-  startTime:"2025-12-14T19:30",
-  endTime:"2025-12-14T20:20",
-  commentator:"محمد بركات",
-  league:"الدوري الإسباني",
-  channel:"beIN SPORTS 3",
-  link:"go:3HD"
-};
-
-// ===== مصفوفة كل المباريات =====
-const matches = [match1, match2, match3, match4, match5, match6, match7];
-
-// ===== عرض المباريات =====
+/* ===== عرض المباريات ===== */
 function renderMatches(){
   const container = document.getElementById('page');
   container.innerHTML='';
 
-  // ترتيب المباريات بحيث المنتهية للأسفل
-  matches.sort((a,b)=>{
-    const now = new Date();
-    const endA = new Date(a.endTime);
-    const endB = new Date(b.endTime);
-    if(endA < now && endB >= now) return 1;
-    if(endB < now && endA >= now) return -1;
-    return new Date(a.startTime)-new Date(b.startTime);
-  });
-
-  matches.forEach((m,index)=>{
-    const div = document.createElement('div');
+  matches.forEach((m,i)=>{
+    const div=document.createElement('div');
     div.className='match-card';
-    div.onclick=()=>{window.location=m.link;};
+    div.onclick=()=>window.location=m.link;
     div.innerHTML=`
       <div class="match-teams">
         <div class="team"><img src="${m.team1.img}"><div class="team-name">${m.team1.name}</div></div>
-        <div class="match-status" id="status-${index}">⚽</div>
+        <div class="match-status" id="st-${i}">⚽</div>
         <div class="team"><img src="${m.team2.img}"><div class="team-name">${m.team2.name}</div></div>
       </div>
       <div class="match-details">
-        <span>🎙️ ${m.commentator}</span>
+        <span>🎙 ${m.commentator}</span>
         <span>🏆 ${m.league}</span>
         <span>▶ ${m.channel}</span>
-      </div>`;
-    
+      </div>
+    `;
     container.appendChild(div);
 
-    const statusDiv = document.getElementById(`status-${index}`);
-    function updateStatus(){
-      const now = new Date();
-      const start = new Date(m.startTime);
-      const end = new Date(m.endTime);
-      if(now < start){statusDiv.textContent="لم تبدأ"; div.dataset.status="upcoming";}
-      else if(now >= start && now <= end){statusDiv.textContent="جارية الآن"; div.dataset.status="live";}
-      else{statusDiv.textContent="انتهت"; div.dataset.status="finished";}
-    }
-    updateStatus();
-    setInterval(updateStatus,1000);
+    const st=document.getElementById(`st-${i}`);
+    setInterval(()=>{
+      const now=new Date();
+      if(now<new Date(m.startTime)){st.textContent="لم تبدأ";div.dataset.status="upcoming";}
+      else if(now<=new Date(m.endTime)){st.textContent="جارية الآن";div.dataset.status="live";}
+      else{st.textContent="انتهت";div.dataset.status="finished";}
+    },1000);
   });
 }
 
