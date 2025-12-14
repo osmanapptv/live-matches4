@@ -73,7 +73,7 @@ document.addEventListener("touchstart", e=>{if(e.touches.length===1)xStart=e.tou
 document.addEventListener("touchmove", e=>{if(!xStart)return; const xDiff=Math.abs(e.touches[0].clientX-xStart); if(xDiff>5)e.preventDefault();},{passive:false});
 
 /* ===== المباريات ككائنات مستقلة ===== */
-const match1 = {team1:{name:"الافيس",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/dqC3XtzsGeXe3c53Qqrn-.png"},team2:{name:"ريال مدريد",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/VOlkxOIoXAXF_11lYJ_Ve.png"},startTime:"2025-12-14T22:00",endTime:"2025-12-14T23:55",commentator:"احمد البلوشي",league:"الدوري الاسباني",channel:"beIN SPORTS 1",link:"go:1FHD"};
+const match1 = {team1:{name:"تتت",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/dqC3XtzsGeXe3c53Qqrn-.png"},team2:{name:"ريال مدريد",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/VOlkxOIoXAXF_11lYJ_Ve.png"},startTime:"2025-12-14T22:00",endTime:"2025-12-14T23:55",commentator:"احمد البلوشي",league:"الدوري الاسباني",channel:"beIN SPORTS 1",link:"go:1FHD"};
 const match2 = {team1:{name:"كريستال بلاس",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/fkqJeAhCc1RGGGO8bTZwl.png"},team2:{name:"مان سيتي",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/YaWwRy_S6TKMuwJHBvDbR.png"},startTime:"2025-12-14T16:00",endTime:"2025-12-14T17:55",commentator:"عامر الخوذيري",league:"الدوري الانجليزي",channel:"beIN SPORTS 1",link:"go:1FHD"};
 const match3 = {team1:{name:"نوتينغهام",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/BNAy0MWCqOxdSF4SLgCPK.png"},team2:{name:"توتنهام",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/KmdeSyXZ0p1BvszXZCBzu.png"},startTime:"2025-12-14T16:00",endTime:"2025-12-14T17:55",commentator:"حفيظ دراجي",league:"الدوري الانجليزي",channel:"beIN SPORTS 2",link:"go:2HD"};
 const match4 = {team1:{name:"وست هام",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/CCygH4qVdQFkGTvjHdtDp.png"},team2:{name:"استون فيلا",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/qgf3Tx9R3nphdWIS9SgyB.png"},startTime:"2025-12-14T16:00",endTime:"2025-12-14T17:55",commentator:"محمد المبروكي",league:"الدوري الانجليزي",channel:"beIN SPORTS 4",link:"go:4HD"};
@@ -141,4 +141,5 @@ renderMatches();
 
 </body>
 </html>
+
 
