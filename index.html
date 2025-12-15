@@ -10,59 +10,126 @@
 html, body{
   margin:0; padding:0;
   width:100%; height:100%;
-  background:#1b2735; font-family:'Cairo',sans-serif; color:#fff;
+  background:#1b2735;
+  font-family:'Cairo',sans-serif;
+  color:#fff;
   overflow-x:hidden;
 }
 header{
-  position:fixed; top:0; left:0; right:0; height:65px;
+  position:fixed;
+  top:0; left:0; right:0;
+  height:65px;
   background:linear-gradient(90deg,#ff416c,#ff4b2b);
-  display:flex; align-items:center; justify-content:center;
-  font-weight:700; font-size:20px; box-shadow:0 4px 20px rgba(0,0,0,0.5); z-index:200;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:20px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.5);
+  z-index:200;
 }
 .back-btn{
-  position:absolute; right:15px; cursor:pointer; color:#fff; font-size:16px;
-  background:rgba(0,0,0,0.25); padding:6px 14px; border-radius:12px;
+  position:absolute;
+  right:15px;
+  cursor:pointer;
+  color:#fff;
+  font-size:16px;
+  background:rgba(0,0,0,0.25);
+  padding:6px 14px;
+  border-radius:12px;
 }
 #page{
-  position:absolute; top:65px; bottom:0; left:0; right:0;
-  overflow-y:auto; -webkit-overflow-scrolling:touch;
-  display:flex; flex-direction:column; align-items:center; gap:25px; padding:15px 0;
+  position:absolute;
+  top:65px; bottom:0; left:0; right:0;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:25px;
+  padding:15px 0;
 }
 .match-card{
-  background:#243b55; border-radius:16px; width:96%; max-width:800px;
-  padding:16px; display:flex; flex-direction:column; gap:12px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.6); cursor:pointer;
+  background:#243b55;
+  border-radius:16px;
+  width:96%;
+  max-width:800px;
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.6);
+  cursor:pointer;
 }
-.match-teams{display:flex; justify-content:space-between; align-items:center;}
-.team{width:42%; text-align:center; background:rgba(255,255,255,0.03); padding:12px; border-radius:14px;}
-.team img{width:70px; height:70px; border-radius:50%; margin-bottom:10px;}
-.match-status{width:18%; text-align:center; padding:8px; border-radius:10px; font-weight:700;}
+.match-teams{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.team{
+  width:42%;
+  text-align:center;
+  background:rgba(255,255,255,0.03);
+  padding:12px;
+  border-radius:14px;
+}
+.team img{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  margin-bottom:10px;
+}
+.match-status{
+  width:18%;
+  text-align:center;
+  padding:8px;
+  border-radius:10px;
+  font-weight:700;
+}
 .match-card[data-status="live"] .match-status{background:#ff4b2b;}
 .match-card[data-status="upcoming"] .match-status{background:#4facfe;}
 .match-card[data-status="finished"] .match-status{background:#555;}
-.match-details{display:flex; justify-content:space-around; flex-wrap:wrap; gap:8px; font-size:14px;}
-.match-details span{background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:6px;}
+.match-details{
+  display:flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
+  gap:8px;
+  font-size:14px;
+}
+.match-details span{
+  background:rgba(255,255,255,0.05);
+  padding:5px 8px;
+  border-radius:6px;
+}
 </style>
 </head>
+
 <body>
+
 <header>
   <div class="back-btn" onclick="goHome()">⟵ رجوع</div>
   <span>LIVE EVENT 2025</span>
 </header>
+
 <div id="page"></div>
+
 <script>
 const HOME_URL = "go:zz";
 function goHome(){ location.href = HOME_URL; }
-history.pushState(null,"",location.href);
-window.onpopstate = goHome;
-
-/* ===== نظام ثابت لا يختفي عند الإضافة أو الحذف =====
-   - كل مباراة لها id فريد
-   - لا نعتمد على index أبداً */
 
 const matches = [
   {
-    id:"m1",
+    id:"m_bar_gua",
+    team1:{name:"غوادالاخارا",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/rMFdIFSfV4MdK4XPVZ96M.png?quality=60&auto=webp&format=pjpg"},
+    team2:{name:"برشلونة",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/eu0z1bZDA3gqIhdn-rHli.png?quality=60&auto=webp&format=pjpg"},
+    startTime:"2025-12-16T22:00",
+    endTime:"2025-12-16T23:50",
+    commentator:"عصام عبده",
+    league:"كأس ملك إسبانيا",
+    channel:"Shahid Sport 1",
+    link:"go:K14"
+  },
+  {
+    id:"m_che_car",
     team1:{name:"تشيلسي",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/w5N6rBTPf_J_brPwrNIOG.png?quality=60&auto=webp&format=pjpg"},
     team2:{name:"كارديف سيتي",img:"https://upload.wikimedia.org/wikipedia/en/3/3c/Cardiff_City_crest.svg"},
     startTime:"2025-12-16T22:00",
@@ -105,92 +172,63 @@ const matches = [
     channel:"ON Sport 1",
     link:"go:K5"
   }
-    team1:{name:"غوادالاخارا",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/rMFdIFSfV4MdK4XPVZ96M.png?quality=60&auto=webp&format=pjpg"},
-    team2:{name:"برشلونة",img:"https://cdn.sportfeeds.io/sdl/images/team/crest/medium/eu0z1bZDA3gqIhdn-rHli.png?quality=60&auto=webp&format=pjpg"},
-    startTime:"2025-12-16T22:00",
-    endTime:"2025-12-16T23:50",
-    commentator:"عصام عبده",
-    league:"كأس ملك إسبانيا",
-    channel:"Shahid Sport 1",
-    link:"go:K14"
-  },
-  /* === يمكن إضافة أو حذف أي مباراة هنا بدون مشاكل === */
 ];
-
-function sortMatchesByStatus(list){
-  const now = new Date();
-  return [...list].sort((a,b)=>{
-    const sa=new Date(a.startTime), ea=new Date(a.endTime);
-    const sb=new Date(b.startTime), eb=new Date(b.endTime);
-    const status = m => now < new Date(m.startTime) ? 1 : now <= new Date(m.endTime) ? 0 : 2;
-    return status(a) - status(b) || sa - sb;
-  });
-}
 
 function renderMatches(){
   const container=document.getElementById("page");
+
   function update(){
     container.innerHTML="";
-    sortMatchesByStatus(matches).forEach(m=>{
+    matches.forEach(m=>{
       const d=document.createElement("div");
       d.className="match-card";
       d.onclick=()=>location.href=m.link;
+
       d.innerHTML=`
         <div class="match-teams">
-          <div class="team"><img src="${m.team1.img}"><div>${m.team1.name}</div></div>
-          <div class="match-status" id="s_${m.id}">⚽</div>
-          <div class="team"><img src="${m.team2.img}"><div>${m.team2.name}</div></div>
+          <div class="team">
+            <img src="${m.team1.img}">
+            <div>${m.team1.name}</div>
+          </div>
+          <div class="match-status">⚽</div>
+          <div class="team">
+            <img src="${m.team2.img}">
+            <div>${m.team2.name}</div>
+          </div>
         </div>
         <div class="match-details">
           <span>🎙 ${m.commentator}</span>
           <span>🏆 ${m.league}</span>
           <span>▶ ${m.channel}</span>
-        </div>`;
+        </div>
+      `;
+
       container.appendChild(d);
-      const now=new Date(), start=new Date(m.startTime), end=new Date(m.endTime);
-      const s=d.querySelector('.match-status');
-      if(now < start){d.dataset.status="upcoming"; s.textContent="لم تبدأ";}
-      else if(now <= end){d.dataset.status="live"; s.textContent="جارية الآن";}
-      else{d.dataset.status="finished"; s.textContent="انتهت";}
+
+      const now=new Date();
+      const start=new Date(m.startTime);
+      const end=new Date(m.endTime);
+      const s=d.querySelector(".match-status");
+
+      if(now < start){
+        d.dataset.status="upcoming";
+        s.textContent="لم تبدأ";
+      }else if(now <= end){
+        d.dataset.status="live";
+        s.textContent="جارية الآن";
+      }else{
+        d.dataset.status="finished";
+        s.textContent="انتهت";
+      }
     });
   }
+
   update();
   setInterval(update,1000);
 }
-/* ===== تنبيه قبل 10 دقائق من بداية المباراة ===== */
-if ('Notification' in window) {
-  Notification.requestPermission();
-}
-
-const notified = new Set();
-
-function checkNotifications(){
-  const now = new Date();
-  matches.forEach(m=>{
-    const start = new Date(m.startTime);
-    const diff = start - now; // الفرق قبل البداية
-
-    // 10 دقائق = 600000 ملي ثانية
-    if(diff <= 600000 && diff > 599000 && !notified.has(m.id)){
-      notified.add(m.id);
-      if(Notification.permission === 'granted'){
-        new Notification('⏰ مباراة بعد 10 دقائق',{
-          body: `${m.team1.name} × ${m.team2.name}
-${m.channel}`,
-          silent: false
-        });
-      }
-    }
-  });
-}
-
-setInterval(checkNotifications,1000);
 
 renderMatches();
 </script>
+
 </body>
 </html>
-
-
-
-
